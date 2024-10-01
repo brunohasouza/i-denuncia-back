@@ -16,14 +16,13 @@ public class FuncionarioRepository implements Repository<Funcionario, Integer>{
 
     @Override
     public void create(Funcionario funcionario) throws SQLException {
-        String sql = "insert into funcionario(nome, anoNascimento, genero, setor) values(?, ?, ?, ?)";
+        String sql = "insert into funcionario(nome, ano_nascimento, setor_codigo) values(?, ?, ?)";
 
         PreparedStatement pstm = ConnectionManager.getCurrentConnection().prepareStatement(sql);
 
         pstm.setString(1, funcionario.getNome());
         pstm.setInt(2, funcionario.getAnoNascimento());
-        pstm.setString(3, funcionario.getGenero());
-        pstm.setInt(4, funcionario.getSetor().getCodigo());
+        pstm.setInt(3, funcionario.getSetor().getCodigo());
 
         pstm.execute();
     }
@@ -42,7 +41,6 @@ public class FuncionarioRepository implements Repository<Funcionario, Integer>{
 
             funcionario.setCodigo(k);
             funcionario.setNome(result.getString("nome"));
-            funcionario.setGenero(result.getString("genero"));
             funcionario.setAnoNascimento(result.getInt("anoNascimento"));
             funcionario.setSetor(setor);
         }
@@ -63,7 +61,6 @@ public class FuncionarioRepository implements Repository<Funcionario, Integer>{
 
             funcionario.setCodigo(result.getInt("codigo"));
             funcionario.setNome(result.getString("nome"));
-            funcionario.setGenero(result.getString("genero"));
             funcionario.setAnoNascimento(result.getInt("anoNascimento"));
             funcionario.setSetor(setor);
 
@@ -74,7 +71,7 @@ public class FuncionarioRepository implements Repository<Funcionario, Integer>{
     }
 
     public List<Funcionario> readAll(Integer k) throws SQLException {
-        String sql  = "select * from funcionario where setor = " + k;
+        String sql  = "select * from funcionario where setor_codigo = " + k;
 
         ResultSet result = ConnectionManager.getCurrentConnection().prepareStatement(sql).executeQuery();
         List<Funcionario> funcionarios = new ArrayList<>();
@@ -85,7 +82,6 @@ public class FuncionarioRepository implements Repository<Funcionario, Integer>{
 
             funcionario.setCodigo(result.getInt("codigo"));
             funcionario.setNome(result.getString("nome"));
-            funcionario.setGenero(result.getString("genero"));
             funcionario.setAnoNascimento(result.getInt("anoNascimento"));
             funcionario.setSetor(setor);
 

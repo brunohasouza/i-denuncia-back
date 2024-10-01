@@ -1,18 +1,9 @@
-package br.com.bhas.idenuncia.model.entities;
+package br.com.bhas.idenuncia.model.bodies;
 
-public class Funcionario {
-    private int codigo;
+public class FuncionarioBody {
     private String nome;
-    private Setor setor;
+    private int setor;
     private int anoNascimento;
-
-    public int getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
-    }
 
     public String getNome() {
         return nome;
@@ -22,11 +13,11 @@ public class Funcionario {
         this.nome = nome;
     }
 
-    public Setor getSetor() {
+    public int getSetor() {
         return setor;
     }
 
-    public void setSetor(Setor setor) {
+    public void setSetor(int setor) {
         this.setor = setor;
     }
 
@@ -36,5 +27,14 @@ public class Funcionario {
 
     public void setAnoNascimento(int anoNascimento) {
         this.anoNascimento = anoNascimento;
+    }
+
+    @Override
+    public String toString() {
+        return "FuncionarioBody{" +
+                "nome='" + nome + '\'' +
+                ", setor=" + setor +
+                ", anoNascimento=" + anoNascimento +
+                '}';
     }
 }

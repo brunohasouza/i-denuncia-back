@@ -1,6 +1,8 @@
 package br.com.bhas.idenuncia.controllers;
 
+import br.com.bhas.idenuncia.model.entities.Funcionario;
 import br.com.bhas.idenuncia.model.entities.Setor;
+import br.com.bhas.idenuncia.model.repositories.FuncionarioRepository;
 import br.com.bhas.idenuncia.model.repositories.SetorRepository;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.HttpStatus;
@@ -13,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/setor")
+@RequestMapping("/setores")
 @CrossOrigin(allowCredentials = "true", value = "http://localhost:8080")
 public class SetorController {
     @GetMapping
@@ -26,7 +28,7 @@ public class SetorController {
     }
 
     @PostMapping
-    public ResponseEntity<?> create(@RequestBody Setor setor) {
+    public ResponseEntity<Setor> create(@RequestBody Setor setor) {
         try {
             SetorRepository.instance.create(setor);
             return new ResponseEntity<>(HttpStatus.OK);
@@ -49,6 +51,16 @@ public class SetorController {
         } catch (SQLException e) {
             e.printStackTrace();
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/{codigo}/funcionarios")
+    public List<Funcionario> listBySetor(@PathVariable("codigo") int codigo) {
+        try {
+            return FuncionarioRepository.instance.readAll(codigo);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return new ArrayList<>();
         }
     }
 }
