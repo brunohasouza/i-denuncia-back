@@ -28,7 +28,7 @@ public class SetorController {
     }
 
     @PostMapping
-    public ResponseEntity<Setor> create(@RequestBody Setor setor) {
+    public ResponseEntity<?> create(@RequestBody Setor setor) {
         try {
             SetorRepository.instance.create(setor);
             return new ResponseEntity<>(HttpStatus.OK);

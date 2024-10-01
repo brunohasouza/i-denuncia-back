@@ -23,7 +23,7 @@ public class Denuncia {
         this.tipo = tipo;
     }
 
-    public String getDenunciaName() {
+    public String getNome() {
         Map<DENUNCIAS, String> denuncias = new HashMap<>();
 
         denuncias.put(DENUNCIAS.ACIDENTE, "Acidente");

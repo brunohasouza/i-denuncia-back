@@ -10,7 +10,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -31,7 +30,6 @@ public class FuncionarioController {
 
     @PostMapping
     public ResponseEntity<?> create(@RequestBody FuncionarioBody body) {
-        System.out.println(body.toString());
         try {
             Setor setor = SetorRepository.instance.read(body.getSetor());
             Funcionario funcionario = new Funcionario();

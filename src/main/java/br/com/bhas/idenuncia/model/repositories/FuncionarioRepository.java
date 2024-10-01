@@ -37,11 +37,11 @@ public class FuncionarioRepository implements Repository<Funcionario, Integer>{
         if (result.next()) {
             funcionario = new Funcionario();
 
-            Setor setor = SetorRepository.instance.read(result.getInt("setor"));
+            Setor setor = SetorRepository.instance.read(result.getInt("setor_codigo"));
 
             funcionario.setCodigo(k);
             funcionario.setNome(result.getString("nome"));
-            funcionario.setAnoNascimento(result.getInt("anoNascimento"));
+            funcionario.setAnoNascimento(result.getInt("ano_nascimento"));
             funcionario.setSetor(setor);
         }
 
@@ -57,11 +57,11 @@ public class FuncionarioRepository implements Repository<Funcionario, Integer>{
 
         while(result.next()) {
             Funcionario funcionario = new Funcionario();
-            Setor setor = SetorRepository.instance.read(result.getInt("setor"));
+            Setor setor = SetorRepository.instance.read(result.getInt("setor_codigo"));
 
             funcionario.setCodigo(result.getInt("codigo"));
             funcionario.setNome(result.getString("nome"));
-            funcionario.setAnoNascimento(result.getInt("anoNascimento"));
+            funcionario.setAnoNascimento(result.getInt("ano_nascimento"));
             funcionario.setSetor(setor);
 
             funcionarios.add(funcionario);
@@ -82,7 +82,7 @@ public class FuncionarioRepository implements Repository<Funcionario, Integer>{
 
             funcionario.setCodigo(result.getInt("codigo"));
             funcionario.setNome(result.getString("nome"));
-            funcionario.setAnoNascimento(result.getInt("anoNascimento"));
+            funcionario.setAnoNascimento(result.getInt("ano_nascimento"));
             funcionario.setSetor(setor);
 
             funcionarios.add(funcionario);

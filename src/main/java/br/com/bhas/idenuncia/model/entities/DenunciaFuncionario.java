@@ -1,10 +1,14 @@
 package br.com.bhas.idenuncia.model.entities;
 
+import java.sql.Date;
+
 public class DenunciaFuncionario {
 
     private int codigo;
     private Denuncia denuncia;
     private Funcionario funcionario;
+
+    private Date dataCriacao;
 
     public Funcionario getFuncionario() {
         return funcionario;
@@ -28,5 +32,13 @@ public class DenunciaFuncionario {
 
     public void setCodigo(int codigo) {
         this.codigo = codigo;
+    }
+
+    public Date getDataCriacao() {
+        return dataCriacao;
+    }
+
+    public void setDataCriacao(Date dataCriacao) {
+        this.dataCriacao = dataCriacao;
     }
 }
