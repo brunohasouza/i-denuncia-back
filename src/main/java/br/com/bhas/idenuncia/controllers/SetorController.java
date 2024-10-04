@@ -16,7 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/setores")
-@CrossOrigin(allowCredentials = "true", value = "http://localhost:8080")
+@CrossOrigin(origins = "*")
 public class SetorController {
     @GetMapping
     public List<Setor> list(HttpServletResponse response) {

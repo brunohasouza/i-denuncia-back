@@ -16,7 +16,7 @@ public class FuncionarioRepository implements Repository<Funcionario, Integer>{
 
     @Override
     public void create(Funcionario funcionario) throws SQLException {
-        String sql = "insert into funcionario(nome, ano_nascimento, setor_codigo) values(?, ?, ?)";
+        String sql = "insert into funcionario(nome, ano_nascimento, setor_codigo) values(?, ?, ?);";
 
         PreparedStatement pstm = ConnectionManager.getCurrentConnection().prepareStatement(sql);
 
@@ -50,7 +50,7 @@ public class FuncionarioRepository implements Repository<Funcionario, Integer>{
 
     @Override
     public List<Funcionario> readAll() throws SQLException {
-        String sql  = "select * from funcionario";
+        String sql  = "select * from funcionario order by codigo desc;";
 
         ResultSet result = ConnectionManager.getCurrentConnection().prepareStatement(sql).executeQuery();
         List<Funcionario> funcionarios = new ArrayList<>();
@@ -71,7 +71,7 @@ public class FuncionarioRepository implements Repository<Funcionario, Integer>{
     }
 
     public List<Funcionario> readAll(Integer k) throws SQLException {
-        String sql  = "select * from funcionario where setor_codigo = " + k;
+        String sql  = "select * from funcionario where setor_codigo = " + k + " order by codigo desc;";
 
         ResultSet result = ConnectionManager.getCurrentConnection().prepareStatement(sql).executeQuery();
         List<Funcionario> funcionarios = new ArrayList<>();

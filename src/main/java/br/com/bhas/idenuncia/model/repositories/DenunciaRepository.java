@@ -16,7 +16,7 @@ public class DenunciaRepository implements Repository<Denuncia, Integer> {
 
     @Override
     public void create(Denuncia denuncia) throws SQLException {
-        String sql = "insert into denuncia(tipo) values(?)";
+        String sql = "insert into denuncia(tipo) values(?);";
 
         PreparedStatement pstm = ConnectionManager.getCurrentConnection().prepareStatement(sql);
 
@@ -43,7 +43,7 @@ public class DenunciaRepository implements Repository<Denuncia, Integer> {
 
     @Override
     public List<Denuncia> readAll() throws SQLException {
-        String sql  = "select * from denuncia";
+        String sql  = "select * from denuncia order by codigo desc;";
 
         ResultSet result = ConnectionManager.getCurrentConnection().prepareStatement(sql).executeQuery();
         List<Denuncia> denuncias = new ArrayList<>();

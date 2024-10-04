@@ -28,7 +28,19 @@ public class SetorRepository implements Repository<Setor, Integer> {
 
     @Override
     public Setor read(Integer k) throws SQLException {
-        String sql  = "select * from setor where codigo = " + k;
+        String sql = "select " +
+                "s.codigo," +
+                " s.nome," +
+                " s.cor," +
+                " s.descricao, " +
+                "count(distinct f.codigo) as funcionarios, " +
+                "count(df.funcionario_codigo) as denuncias " +
+                "from setor s " +
+                "left join funcionario f on s.codigo = f.setor_codigo " +
+                "left join denuncia_funcionario df on f.codigo = df.funcionario_codigo " +
+                "where s.codigo = " + k + " " +
+                "group by s.codigo, s.nome, s.cor, s.descricao" +
+                " order by s.codigo desc;";
 
         ResultSet result = ConnectionManager.getCurrentConnection().prepareStatement(sql).executeQuery();
         Setor setor = null;
@@ -40,6 +52,8 @@ public class SetorRepository implements Repository<Setor, Integer> {
             setor.setCor(result.getString("cor"));
             setor.setNome(result.getString("nome"));
             setor.setDescricao(new String(result.getBytes("descricao")));
+            setor.setFuncionarios(result.getInt("funcionarios"));
+            setor.setDenuncias(result.getInt("denuncias"));
         }
 
         return setor;
@@ -47,7 +61,18 @@ public class SetorRepository implements Repository<Setor, Integer> {
 
     @Override
     public List<Setor> readAll() throws SQLException {
-        String sql  = "select * from setor";
+        String sql = "select " +
+                "s.codigo," +
+                " s.nome," +
+                " s.cor," +
+                " s.descricao, " +
+                "count(distinct f.codigo) as funcionarios, " +
+                "count(df.funcionario_codigo) as denuncias " +
+                "from setor s " +
+                "left join funcionario f on s.codigo = f.setor_codigo " +
+                "left join denuncia_funcionario df on f.codigo = df.funcionario_codigo " +
+                "group by s.codigo, s.nome, s.cor, s.descricao" +
+                " order by s.codigo desc;";
 
         ResultSet result = ConnectionManager.getCurrentConnection().prepareStatement(sql).executeQuery();
         List<Setor> setores = new ArrayList<>();
@@ -59,6 +84,8 @@ public class SetorRepository implements Repository<Setor, Integer> {
             setor.setCor(result.getString("cor"));
             setor.setNome(result.getString("nome"));
             setor.setDescricao(result.getString("descricao"));
+            setor.setDenuncias(result.getInt("denuncias"));
+            setor.setFuncionarios(result.getInt("funcionarios"));
 
             setores.add(setor);
         }

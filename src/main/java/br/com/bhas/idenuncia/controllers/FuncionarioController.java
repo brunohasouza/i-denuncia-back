@@ -17,7 +17,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/funcionarios")
-@CrossOrigin(allowCredentials = "true", value = "http://localhost:8080")
+@CrossOrigin(origins = "*")
 public class FuncionarioController {
     @GetMapping
     public List<Funcionario> list(HttpServletResponse response) {

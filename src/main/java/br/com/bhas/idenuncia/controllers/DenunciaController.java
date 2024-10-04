@@ -18,7 +18,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/denuncias")
-@CrossOrigin(allowCredentials = "true", value = "http://localhost:8080")
+@CrossOrigin(origins = "*")
 public class DenunciaController {
     @GetMapping
     public List<Denuncia> list() {
@@ -48,9 +48,9 @@ public class DenunciaController {
     }
 
     @GetMapping("/{setor}")
-    public List<DenunciaFuncionario> listBySetor(@PathVariable("setor") int setor, @RequestParam(required = false) Date dataCriacao) {
+    public List<DenunciaFuncionario> listBySetor(@PathVariable("setor") int setor, @RequestParam(required = false) Date data) {
         try {
-            return DenunciaFuncionarioRepository.instance.readAll(setor, dataCriacao);
+            return DenunciaFuncionarioRepository.instance.readAll(setor, data);
         } catch (SQLException e) {
             return new ArrayList<>();
         }

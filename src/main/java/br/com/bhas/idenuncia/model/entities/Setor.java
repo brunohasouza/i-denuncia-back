@@ -5,6 +5,8 @@ public class Setor {
     private String nome;
     private String descricao;
     private String cor;
+    private int funcionarios;
+    private int denuncias;
 
     public String getNome() {
         return nome;
@@ -36,5 +38,21 @@ public class Setor {
 
     public void setCodigo(int codigo) {
         this.codigo = codigo;
+    }
+
+    public int getFuncionarios() {
+        return funcionarios;
+    }
+
+    public void setFuncionarios(int funcionarios) {
+        this.funcionarios = funcionarios;
+    }
+
+    public int getDenuncias() {
+        return denuncias;
+    }
+
+    public void setDenuncias(int denuncias) {
+        this.denuncias = denuncias;
     }
 }

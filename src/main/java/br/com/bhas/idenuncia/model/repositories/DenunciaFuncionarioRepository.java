@@ -19,7 +19,7 @@ public class DenunciaFuncionarioRepository implements Repository<DenunciaFuncion
 
     @Override
     public void create(DenunciaFuncionario denunciaFuncionario) throws SQLException {
-        String sql = "insert into denuncia_funcionario(denuncia_codigo, funcionario_codigo, data_criacao) values(?, ?, current_date)";
+        String sql = "insert into denuncia_funcionario(denuncia_codigo, funcionario_codigo, data_criacao) values(?, ?, current_date);";
 
         PreparedStatement pstm = ConnectionManager.getCurrentConnection().prepareStatement(sql);
 
@@ -53,7 +53,7 @@ public class DenunciaFuncionarioRepository implements Repository<DenunciaFuncion
 
     @Override
     public List<DenunciaFuncionario> readAll() throws SQLException {
-        String sql  = "select * from denuncia_funcionario";
+        String sql  = "select * from denuncia_funcionario order by codigo desc;";
 
         ResultSet result = ConnectionManager.getCurrentConnection().prepareStatement(sql).executeQuery();
         List<DenunciaFuncionario> denuncias = new ArrayList<>();
@@ -67,7 +67,7 @@ public class DenunciaFuncionarioRepository implements Repository<DenunciaFuncion
             denunciaFuncionario.setCodigo(result.getInt("codigo"));
             denunciaFuncionario.setDenuncia(denuncia);
             denunciaFuncionario.setFuncionario(funcionario);
-            denunciaFuncionario.setDataCriacao(result.getDate("data_criacao"));
+            denunciaFuncionario.setDataCriacao(result.getDate("data"));
 
             denuncias.add(denunciaFuncionario);
         }
@@ -76,7 +76,7 @@ public class DenunciaFuncionarioRepository implements Repository<DenunciaFuncion
     }
 
     public List<DenunciaFuncionario> readAll(int setor, Date dataCriacao) throws SQLException {
-        String sql = "select df.* from denuncia_funcionario df join funcionario f on df.funcionario_codigo = f.codigo join setor s on f.setor_codigo = s.codigo where s.codigo = " + setor;
+        String sql = "select df.* from denuncia_funcionario df join funcionario f on df.funcionario_codigo = f.codigo join setor s on f.setor_codigo = s.codigo where s.codigo = " + setor + " order by df.codigo desc;";
 
         if (dataCriacao != null) {
             sql += " and df.data_criacao = '" + dataCriacao.toLocalDate() + "'";
