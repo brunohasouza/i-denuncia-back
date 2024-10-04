@@ -76,11 +76,13 @@ public class DenunciaFuncionarioRepository implements Repository<DenunciaFuncion
     }
 
     public List<DenunciaFuncionario> readAll(int setor, Date dataCriacao) throws SQLException {
-        String sql = "select df.* from denuncia_funcionario df join funcionario f on df.funcionario_codigo = f.codigo join setor s on f.setor_codigo = s.codigo where s.codigo = " + setor + " order by df.codigo desc;";
+        String sql = "select df.* from denuncia_funcionario df join funcionario f on df.funcionario_codigo = f.codigo join setor s on f.setor_codigo = s.codigo where s.codigo = " + setor;
 
         if (dataCriacao != null) {
             sql += " and df.data_criacao = '" + dataCriacao.toLocalDate() + "'";
         }
+
+        sql += " order by df.codigo desc;";
 
         ResultSet result = ConnectionManager.getCurrentConnection().prepareStatement(sql).executeQuery();
         List<DenunciaFuncionario> denuncias = new ArrayList<>();
